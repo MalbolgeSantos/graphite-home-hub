@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -11,42 +12,9 @@ All colors in HSL format for design system consistency
 
 @layer base {
   :root {
-    /* Light theme (not used but keeping for compatibility) */
-    --background: 0 0% 100%;
-    --foreground: 220 13% 18%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 220 13% 18%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 18%;
-
-    --primary: 262 48% 48%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 9% 97%;
-    --secondary-foreground: 220 13% 18%;
-
-    --muted: 210 9% 97%;
-    --muted-foreground: 220 9% 46%;
-
-    --accent: 210 9% 97%;
-    --accent-foreground: 220 13% 18%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 48% 48%;
-
-    --radius: 1rem;
-  }
-
-  .dark {
-    /* Graphite Dark Theme */
+    /* Graphite Dark Theme - Applied by default */
     --background: 216 12% 12%; /* #1B1D1F */
-    --foreground: 220 9% 95%;
+    --foreground: 220 9% 95%; /* Texto principal bem claro */
 
     --card: 218 11% 18%; /* #2A2D31 */
     --card-foreground: 220 9% 95%;
@@ -54,68 +22,91 @@ All colors in HSL format for design system consistency
     --popover: 218 11% 18%;
     --popover-foreground: 220 9% 95%;
 
-    --primary: 262 48% 48%; /* #6B5B95 - Purple accent */
+    --primary: 262 48% 58%; /* #6B5B95 - Purple accent mais claro */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 218 11% 18%; /* #2A2D31 */
     --secondary-foreground: 220 9% 95%;
 
     --muted: 218 11% 15%;
-    --muted-foreground: 220 9% 65%;
+    --muted-foreground: 220 9% 75%; /* Texto secundário mais claro */
 
-    --accent: 38 92% 48%; /* #F59E0B - Orange accent */
+    --accent: 38 92% 58%; /* #F59E0B - Orange accent */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 220 9% 95%;
+    --destructive: 0 63% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 218 11% 22%;
+    --border: 218 11% 25%; /* Bordas mais visíveis */
     --input: 218 11% 18%;
-    --ring: 262 48% 48%;
+    --ring: 262 48% 58%;
 
     /* Success colors */
-    --success: 142 71% 45%;
+    --success: 142 71% 55%; /* Verde mais claro */
     --success-foreground: 0 0% 100%;
 
     /* Warning colors */
-    --warning: 38 92% 48%;
+    --warning: 38 92% 58%;
     --warning-foreground: 0 0% 100%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(262 48% 48%), hsl(262 48% 55%));
-    --gradient-accent: linear-gradient(135deg, hsl(38 92% 48%), hsl(38 92% 55%));
+    --gradient-primary: linear-gradient(135deg, hsl(262 48% 58%), hsl(262 48% 65%));
+    --gradient-accent: linear-gradient(135deg, hsl(38 92% 58%), hsl(38 92% 65%));
     --gradient-dark: linear-gradient(135deg, hsl(216 12% 12%), hsl(218 11% 18%));
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(216 12% 8% / 0.1);
-    --shadow-md: 0 4px 6px -1px hsl(216 12% 8% / 0.2), 0 2px 4px -2px hsl(216 12% 8% / 0.1);
-    --shadow-lg: 0 10px 15px -3px hsl(216 12% 8% / 0.3), 0 4px 6px -4px hsl(216 12% 8% / 0.1);
-    --shadow-xl: 0 20px 25px -5px hsl(216 12% 8% / 0.3), 0 8px 10px -6px hsl(216 12% 8% / 0.1);
-    --shadow-glow: 0 0 20px hsl(262 48% 48% / 0.3);
+    --shadow-sm: 0 1px 2px 0 hsl(216 12% 8% / 0.2);
+    --shadow-md: 0 4px 6px -1px hsl(216 12% 8% / 0.3), 0 2px 4px -2px hsl(216 12% 8% / 0.2);
+    --shadow-lg: 0 10px 15px -3px hsl(216 12% 8% / 0.4), 0 4px 6px -4px hsl(216 12% 8% / 0.2);
+    --shadow-xl: 0 20px 25px -5px hsl(216 12% 8% / 0.4), 0 8px 10px -6px hsl(216 12% 8% / 0.2);
+    --shadow-glow: 0 0 20px hsl(262 48% 58% / 0.3);
 
     /* Sidebar specific */
     --sidebar-background: 216 12% 12%;
     --sidebar-foreground: 220 9% 95%;
-    --sidebar-primary: 262 48% 48%;
+    --sidebar-primary: 262 48% 58%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 218 11% 18%;
     --sidebar-accent-foreground: 220 9% 95%;
-    --sidebar-border: 218 11% 22%;
-    --sidebar-ring: 262 48% 48%;
+    --sidebar-border: 218 11% 25%;
+    --sidebar-ring: 262 48% 58%;
+
+    --radius: 1rem;
   }
 
-  /* Force dark mode by default */
-  html {
-    @apply dark;
+  /* Force dark mode globally */
+  html, body {
+    @apply bg-background text-foreground;
+    color-scheme: dark;
   }
-}
+  
+  html.dark, body.dark {
+    @apply bg-background text-foreground;
+  }
 
-@layer base {
+  /* Ensure all elements inherit proper colors */
   * {
     @apply border-border;
   }
+}
 
-  body {
-    @apply bg-background text-foreground;
-  }
+/* Global dark theme enforcement */
+.light {
+  /* Override light mode completely with dark values */
+  --background: 216 12% 12%;
+  --foreground: 220 9% 95%;
+  --card: 218 11% 18%;
+  --card-foreground: 220 9% 95%;
+  --popover: 218 11% 18%;
+  --popover-foreground: 220 9% 95%;
+  --muted-foreground: 220 9% 75%;
+}
+
+/* Ensure text is always visible */
+h1, h2, h3, h4, h5, h6, p, span, div {
+  color: hsl(var(--foreground));
+}
+
+.text-2xl, .text-3xl, .font-bold, .font-semibold {
+  color: hsl(var(--foreground)) !important;
 }
