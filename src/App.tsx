@@ -4,7 +4,11 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/hooks/useAuth";
+import { HouseholdProvider } from "@/hooks/useHousehold";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import Financas from "./pages/Financas";
 import Mercado from "./pages/Mercado";
 import Viagens from "./pages/Viagens";
@@ -20,15 +24,20 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/financas" element={<Financas />} />
-          <Route path="/mercado" element={<Mercado />} />
-          <Route path="/viagens" element={<Viagens />} />
-          <Route path="/documentos" element={<Documentos />} />
-          <Route path="/notas" element={<Notas />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <HouseholdProvider>
+            <Routes>
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+              <Route path="/financas" element={<ProtectedRoute><Financas /></ProtectedRoute>} />
+              <Route path="/mercado" element={<ProtectedRoute><Mercado /></ProtectedRoute>} />
+              <Route path="/viagens" element={<ProtectedRoute><Viagens /></ProtectedRoute>} />
+              <Route path="/documentos" element={<ProtectedRoute><Documentos /></ProtectedRoute>} />
+              <Route path="/notas" element={<ProtectedRoute><Notas /></ProtectedRoute>} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </HouseholdProvider>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
