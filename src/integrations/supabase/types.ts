@@ -18,102 +18,35 @@ export type Database = {
         Row: {
           created_at: string
           current_balance: number | null
-          household_id: string
           id: string
           is_archived: boolean | null
           name: string
           opening_balance: number | null
           type: string
           updated_at: string
+          user_id: string
         }
         Insert: {
           created_at?: string
           current_balance?: number | null
-          household_id: string
           id?: string
           is_archived?: boolean | null
           name: string
           opening_balance?: number | null
           type?: string
           updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          current_balance?: number | null
-          household_id?: string
-          id?: string
-          is_archived?: boolean | null
-          name?: string
-          opening_balance?: number | null
-          type?: string
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "accounts_household_id_fkey"
-            columns: ["household_id"]
-            isOneToOne: false
-            referencedRelation: "households"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      household_members: {
-        Row: {
-          household_id: string
-          id: string
-          joined_at: string
-          role: string
-          user_id: string
-        }
-        Insert: {
-          household_id: string
-          id?: string
-          joined_at?: string
-          role?: string
-          user_id: string
-        }
-        Update: {
-          household_id?: string
-          id?: string
-          joined_at?: string
-          role?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "household_members_household_id_fkey"
-            columns: ["household_id"]
-            isOneToOne: false
-            referencedRelation: "households"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      households: {
-        Row: {
-          created_at: string
-          currency: string | null
-          id: string
-          name: string
-          timezone: string | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          currency?: string | null
-          id?: string
-          name: string
-          timezone?: string | null
-          updated_at?: string
-        }
         Update: {
           created_at?: string
-          currency?: string | null
+          current_balance?: number | null
           id?: string
+          is_archived?: boolean | null
           name?: string
-          timezone?: string | null
+          opening_balance?: number | null
+          type?: string
           updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -157,7 +90,6 @@ export type Database = {
           category: string | null
           created_at: string
           description: string
-          household_id: string
           id: string
           transaction_date: string
           type: string
@@ -170,7 +102,6 @@ export type Database = {
           category?: string | null
           created_at?: string
           description: string
-          household_id: string
           id?: string
           transaction_date?: string
           type: string
@@ -183,7 +114,6 @@ export type Database = {
           category?: string | null
           created_at?: string
           description?: string
-          household_id?: string
           id?: string
           transaction_date?: string
           type?: string
@@ -196,13 +126,6 @@ export type Database = {
             columns: ["account_id"]
             isOneToOne: false
             referencedRelation: "accounts"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "transactions_household_id_fkey"
-            columns: ["household_id"]
-            isOneToOne: false
-            referencedRelation: "households"
             referencedColumns: ["id"]
           },
         ]

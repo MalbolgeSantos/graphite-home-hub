@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { useHousehold } from "@/hooks/useHousehold";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
@@ -24,20 +23,18 @@ export function AddTransactionModal({ open, onOpenChange }: AddTransactionModalP
   const [loading, setLoading] = useState(false);
   
   const { toast } = useToast();
-  const { household } = useHousehold();
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!household?.id || !user?.id) return;
+    if (!user?.id) return;
 
     setLoading(true);
     try {
       const { error } = await supabase
         .from('transactions')
         .insert({
-          household_id: household.id,
           user_id: user.id,
           description: description.trim(),
           amount: type === 'expense' ? -Math.abs(Number(amount)) : Number(amount),

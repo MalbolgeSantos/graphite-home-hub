@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, CreditCard, Target, ShoppingCart, Receipt } from "lucide-react";
 import { AddTransactionModal } from "./AddTransactionModal";
+import { AddAccountModal } from "./AddAccountModal";
 import { useNavigate } from "react-router-dom";
 
 export function QuickActions() {
   const [showAddTransaction, setShowAddTransaction] = useState(false);
+  const [showAddAccount, setShowAddAccount] = useState(false);
   const navigate = useNavigate();
 
   const actions = [
@@ -19,10 +21,10 @@ export function QuickActions() {
       className: "bg-primary/10 hover:bg-primary/20 text-primary border-primary/20",
     },
     {
-      title: "Gerenciar Contas",
+      title: "Nova Conta",
       icon: CreditCard,
-      description: "Ver contas e cartões",
-      onClick: () => navigate("/financas"),
+      description: "Adicionar conta bancária",
+      onClick: () => setShowAddAccount(true),
       className: "bg-success/10 hover:bg-success/20 text-success border-success/20",
     },
     {
@@ -85,6 +87,11 @@ export function QuickActions() {
       <AddTransactionModal 
         open={showAddTransaction} 
         onOpenChange={setShowAddTransaction} 
+      />
+      
+      <AddAccountModal 
+        open={showAddAccount} 
+        onOpenChange={setShowAddAccount} 
       />
     </>
   );

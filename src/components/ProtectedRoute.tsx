@@ -1,6 +1,4 @@
 import { useAuth } from "@/hooks/useAuth";
-import { useHousehold } from "@/hooks/useHousehold";
-import HouseholdSetup from "@/components/onboarding/HouseholdSetup";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProtectedRouteProps {
@@ -9,9 +7,8 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, loading: authLoading } = useAuth();
-  const { household, loading: householdLoading } = useHousehold();
 
-  if (authLoading || householdLoading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="space-y-4 w-full max-w-md">
@@ -25,10 +22,6 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   if (!user) {
     return null; // AuthProvider will redirect to /auth
-  }
-
-  if (!household) {
-    return <HouseholdSetup />;
   }
 
   return <>{children}</>;

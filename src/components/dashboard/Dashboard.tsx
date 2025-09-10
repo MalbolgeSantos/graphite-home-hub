@@ -7,7 +7,7 @@ import { UpcomingBillsCard } from "./UpcomingBillsCard";
 import { LowStockAlert } from "./LowStockAlert";
 import { RecentTransactions } from "./RecentTransactions";
 import { QuickActions } from "./QuickActions";
-import { useHousehold } from "@/hooks/useHousehold";
+import { useAuth } from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,39 +21,39 @@ import {
 } from "lucide-react";
 
 export function Dashboard() {
-  const { household } = useHousehold();
+  const { user } = useAuth();
 
-  // Fetch transactions for current household
+  // Fetch transactions for current user
   const { data: transactions, isLoading: transactionsLoading } = useQuery({
-    queryKey: ['transactions', household?.id],
+    queryKey: ['transactions', user?.id],
     queryFn: async () => {
-      if (!household?.id) return [];
+      if (!user?.id) return [];
       const { data, error } = await supabase
         .from('transactions')
         .select('*')
-        .eq('household_id', household.id)
+        .eq('user_id', user.id)
         .order('transaction_date', { ascending: false });
       
       if (error) throw error;
       return data || [];
     },
-    enabled: !!household?.id,
+    enabled: !!user?.id,
   });
 
-  // Fetch accounts for current household
+  // Fetch accounts for current user
   const { data: accounts, isLoading: accountsLoading } = useQuery({
-    queryKey: ['accounts', household?.id],
+    queryKey: ['accounts', user?.id],
     queryFn: async () => {
-      if (!household?.id) return [];
+      if (!user?.id) return [];
       const { data, error } = await supabase
         .from('accounts')
         .select('*')
-        .eq('household_id', household.id);
+        .eq('user_id', user.id);
       
       if (error) throw error;
       return data || [];
     },
-    enabled: !!household?.id,
+    enabled: !!user?.id,
   });
 
   // Calculate real stats from data
