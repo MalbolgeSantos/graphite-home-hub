@@ -1,11 +1,45 @@
 
+import { useState } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, FileText, Shield, Calendar } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { AddDocumentModal } from "@/components/documents/AddDocumentModal";
+import { DocumentsList } from "@/components/documents/DocumentsList";
 
 const Documentos = () => {
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  const { data: stats } = useQuery({
+    queryKey: ['documents-stats'],
+    queryFn: async () => {
+      const { data: documents, error } = await supabase
+        .from('documents')
+        .select('id, expiry_date')
+        .eq('is_archived', false);
+      
+      if (error) throw error;
+
+      const totalDocuments = documents.length;
+      const today = new Date();
+      const expiringCount = documents.filter(doc => {
+        if (!doc.expiry_date) return false;
+        const expiry = new Date(doc.expiry_date);
+        const diffTime = expiry.getTime() - today.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays <= 30 && diffDays >= 0;
+      }).length;
+      
+      return {
+        totalDocuments,
+        expiringCount,
+      };
+    },
+  });
+
   return (
     <MainLayout>
       <div className="p-6 space-y-6">
@@ -19,7 +53,7 @@ const Documentos = () => {
               <h1 className="text-3xl font-bold text-foreground">Documentos</h1>
               <p className="text-muted-foreground">Gerencie seus documentos importantes com segurança</p>
             </div>
-            <Button className="bg-primary hover:bg-primary/90">
+            <Button onClick={() => setShowAddModal(true)} className="bg-primary hover:bg-primary/90">
               <Plus className="w-4 h-4 mr-2" />
               Novo Documento
             </Button>
@@ -33,7 +67,7 @@ const Documentos = () => {
               <FileText className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">12</div>
+              <div className="text-2xl font-bold text-foreground">{stats?.totalDocuments || 0}</div>
               <p className="text-xs text-muted-foreground">documentos cadastrados</p>
             </CardContent>
           </Card>
@@ -55,7 +89,7 @@ const Documentos = () => {
               <Calendar className="w-4 h-4 text-warning" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">2</div>
+              <div className="text-2xl font-bold text-foreground">{stats?.expiringCount || 0}</div>
               <p className="text-xs text-warning">próximos ao vencimento</p>
             </CardContent>
           </Card>
@@ -63,12 +97,17 @@ const Documentos = () => {
 
         <Card className="bg-gradient-to-br from-card to-card/80 border-border/50">
           <CardHeader>
-            <CardTitle className="text-foreground">Documentos Recentes</CardTitle>
+            <CardTitle className="text-foreground">Meus Documentos</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">Funcionalidade em desenvolvimento...</p>
+            <DocumentsList />
           </CardContent>
         </Card>
+
+        <AddDocumentModal 
+          open={showAddModal} 
+          onOpenChange={setShowAddModal} 
+        />
       </div>
     </MainLayout>
   );
