@@ -30,7 +30,7 @@ const Notas = () => {
       return {
         totalNotes,
         totalTags: uniqueTags.size,
-        totalSearches: Math.floor(Math.random() * 200) + 100, // Mock data
+        totalSearches: 0, // Real data
       };
     },
   });

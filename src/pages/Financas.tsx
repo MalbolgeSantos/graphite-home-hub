@@ -33,8 +33,8 @@ const Financas = () => {
               <TrendingUp className="w-4 h-4 text-success" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">R$ 8.900,00</div>
-              <p className="text-xs text-success">+2.1% em relação ao mês passado</p>
+              <div className="text-2xl font-bold text-foreground">R$ 0,00</div>
+              <p className="text-xs text-muted-foreground">Adicione transações para ver dados</p>
             </CardContent>
           </Card>
 
@@ -44,8 +44,8 @@ const Financas = () => {
               <TrendingDown className="w-4 h-4 text-destructive" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">R$ 6.750,00</div>
-              <p className="text-xs text-destructive">+5.2% em relação ao mês passado</p>
+              <div className="text-2xl font-bold text-foreground">R$ 0,00</div>
+              <p className="text-xs text-muted-foreground">Adicione transações para ver dados</p>
             </CardContent>
           </Card>
 
@@ -55,8 +55,8 @@ const Financas = () => {
               <CreditCard className="w-4 h-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">R$ 2.150,00</div>
-              <p className="text-xs text-success">Saldo positivo</p>
+              <div className="text-2xl font-bold text-foreground">R$ 0,00</div>
+              <p className="text-xs text-muted-foreground">Sem transações registradas</p>
             </CardContent>
           </Card>
         </div>
